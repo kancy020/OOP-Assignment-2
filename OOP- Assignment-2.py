@@ -1,44 +1,64 @@
-
+import Materi
+from abc import ABC, abstractclassmethod
 class Workshop:
-     pass
+     
     
     #displays weapon, use if to see if value == to enchated opr not enchanted weapon
     def displayWeapons():
-        pass
+        
     
     #prints all enchatments in an enchantments list   
-    def displayEnchantments():
-        pass
+    def displayEnchantments(enchantmentBlueprints):
+        enchantmentBlueprints = {"Holy": [Diamond(), Diamond()],     
+                             "Lava": [Ruby(), Onyx()],     
+                             "Pyro": [Ruby(), Diamond()],     
+                             "Darkness": [Onyx(), Amethyst()],     
+                             "Cursed": [Onyx(), Onyx()],     
+                             "Hydro": [Sapphire(), Emerald()],     
+                             "Venomous": [Emerald(), Amethyst()]} 
+    
     
     #prints material name and amount of material remaining
     def displayMaterials():
      
 #is an abstract class    
-class Crafter:
+class Crafter(ABC):
     pass
 
     #crafting method for forge and enchanter(add weapon or enchantment to list)
-    def craft():
+   
+    def craft(self):
         pass
     
     #disassemble method for forge and enchanter(removes weapon or enchantment from list)
-    def disassemble():
+    def disassemble(self):
         pass
 
 class Enchanter(Crafter):
-    pass
+    def __init__(self):
+     self.recipes = {"Holy": "pulses a blinding beam of light",
+                     "Lava": "melts the armour off an enemy",
+                     "Pyro": "applies a devastating burning effect",
+                     "Darkness": "binds the enemy in dark vines",             
+                     "Cursed": "causes the enemy to become crazed",             
+                     "Hydro": "envelops the enemy in a suffocating bubble",             
+                     "Venomous": "afflicts a deadly, fast-acting toxin"} 
+     
+     
+     
     # copy dictionary from assignment sheet
     
     #crafting method for forge and enchanter(add weapon or enchantment to list)
-    def craft():
-        pass
+    def craft(recipes):
+        
+        
     
     #disassemble method for forge and enchanter(removes weapon or enchantment from workshop)
     def disassemble():
-        pass
+        
     
-    def enchant(weapon, enchantmentName, enchantment):
-
+    def enchant(weaponName, enchantmentName, enchantment):
+        
 
 class Forge(Crafter):
         pass
@@ -53,12 +73,12 @@ class Forge(Crafter):
 
 # uses mateirla to craft
 class Enchantment:
-    def __init(self,name, magicDamage, effect, primaryMaterial, secondaryMaterial):
+    def __init(self,name, magicDamage, effect, primaryMaterial, catalystMaterial):
             self.__name = name
             self.__magicDamage = magicDamage
             self.__effect = effect
             self.__primaryMaterial = primaryMaterial
-            self.__secondaryMaterial = secondaryMaterial
+            self.__secondaryMaterial = catalystMaterial
             
     def getEnchantmentName():
         pass
@@ -78,10 +98,10 @@ class Enchantment:
     def getPrimaryMaterial():
         pass
         
-    def getSecondaryMaterial():
-        pass
+    def getSecondaryMaterial(materials):
+        
 
-    def calculateMagicDamage():
+    def calculateMagicDamage(materials):
         pass
             
     def useEffect():
@@ -92,17 +112,19 @@ class Enchantment:
     pass
 
 class Weapon:
-    def __init__(self,name, damage, primaryMaterial, secondaryMaterial):
+    def __init__(self,name, damage, primaryMaterial, catalystMaterial):
          self.__name = name
          self.__damage = damage
          self.__primaryMaterial = primaryMaterial
-         self.__secondaryMaterial = secondaryMaterial
+         self.__secondaryMaterial = catalystMaterial
          self.__enchanted = None
          
          
+         
+         
     # get weapon name  
-    def getName():
-        pass
+    def getName(name):
+        return name
     
     def setName():
         pass
@@ -142,3 +164,16 @@ class Weapon:
     def attack():
         pass
     #property to be made for each
+    
+
+weaponBlueprints = {"Sword": [Steel(), Maple()], 
+                    "Shield": [Bronze(), Oak()], 
+                    "Axe": [Iron(), Ash()], 
+                    "Scythe": [Steel(), Ash()],
+                    "Bow": [Oak(), Maple()],
+                    "Wand": [Ash(), Oak()],
+                    "Staff": [Bronze(), Maple()],
+                    "Dagger": [Bronze(), Bronze()]} 
+
+materials = [Maple(), Oak(), Ash(), Bronze(), Iron(), Steel(), 
+             Ruby(), Sapphire(), Emerald(), Diamond(), Amethyst(), Onyx()] 
