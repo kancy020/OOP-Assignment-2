@@ -3,9 +3,10 @@ from abc import ABC, abstractclassmethod
 
 class Workshop:
 
-    enchantments = {}
-    materials = {}
-    weapons = {}
+   
+    materials = {Maple(), Oak(), Ash(), Bronze(), Iron(), Steel(), 
+             Ruby(), Sapphire(), Emerald(), Diamond(), Amethyst(), Onyx()}
+    
     
      
     
@@ -24,8 +25,8 @@ class Workshop:
     
     
     #prints material name and amount of material remaining
-    def displayMaterials():
-        pass
+    def displayMaterials(materials):
+            for material in materials
     
     def displayArmoury(weapon):
         print('it deals', weapon.damage, 'damage')
@@ -42,7 +43,21 @@ class Crafter(ABC):
     #disassemble method for forge and enchanter(removes weapon or enchantment from list)
     def disassemble(self):
         pass
+    
+class Forge(Crafter):
+        
 
+    #crafting method for forge and enchanter(add weapon or enchantment to list)
+    def craft(weaponName, primaryMaterial, catalystMaterial):
+        weaponBlueprints[weaponName] = primaryMaterial, catalystMaterial
+        
+        
+    
+    
+    #disassemble method for forge and enchanter(removes weapon or enchantment from list)
+    def disassemble(weaponName):
+        weaponBlueprints.pop(weaponName)
+    
 class Enchanter(Crafter):
     def __init__(self):
      self.recipes = {"Holy": "pulses a blinding beam of light",
@@ -54,8 +69,7 @@ class Enchanter(Crafter):
                      "Venomous": "afflicts a deadly, fast-acting toxin"} 
      
      
-     
-    # copy dictionary from assignment sheet
+
     
     #crafting method for forge and enchanter(add weapon or enchantment to list)
     def craft():
@@ -72,20 +86,9 @@ class Enchanter(Crafter):
         pass
         
 
-class Forge(Crafter):
-        
-
-    #crafting method for forge and enchanter(add weapon or enchantment to list)
-    def craft(Crafter):
-        pass
-    
-    #disassemble method for forge and enchanter(removes weapon or enchantment from list)
-    def disassemble(Crafter):
-        pass
-
 # uses mateirla to craft
 class Enchantment:
-    def __init(self,enchantmentName, magicDamage, effect, primaryMaterial, catalystMaterial):
+    def __init__(self,enchantmentName, magicDamage, effect, primaryMaterial, catalystMaterial):
             self.__enchantmentName = enchantmentName
             self.__magicDamage = magicDamage
             self.__effect = effect
@@ -139,8 +142,8 @@ class Weapon:
     def getName(self):
         return self.__name
     
-    def setName(self, newName):
-        self.__name = newName
+    def setName(self, weaponName):
+        self.__name = weaponName
         pass
     
     #get damage rating of weapon
