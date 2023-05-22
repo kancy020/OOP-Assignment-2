@@ -2,21 +2,27 @@ from Materials import *
 from abc import ABC, abstractclassmethod
 
 class Workshop:
+    def __init__(self):
 
    
-    materials = {Maple(), Oak(), Ash(), Bronze(), Iron(), Steel(), 
-             Ruby(), Sapphire(), Emerald(), Diamond(), Amethyst(), Onyx()}
+        self.materials = {Maple(), Oak(), Ash(), Bronze(), Iron(), Steel(), 
+            Ruby(), Sapphire(), Emerald(), Diamond(), Amethyst(), Onyx()}
+
+        self.weapons = {}
+    
+        self.enchantment = {}
+    
     
     
      
     
     #displays weapon, use if to see if value == to enchated opr not enchanted weapon
-    def displayWeapons(weapon):
-        if weapon.enchanted is True:
-            print('the', weapon.name,' is imbued with a' , weapon.useEffect, '.', weapon.attack)
+    def displayWeapons(self):
+        if weapon.enchanted == True:
+            print('the'+ self.weapons.keys() + ' is imbued with a' + self.weapons.get(useEffect) + '.' + Weapon.attack)
         
         else:
-            print('the' + weapon.name, 'is not enchanted' )
+            print('the' + self.weapons.keys() + 'is not enchanted. It deals' + Weapon.attack )
         
     
     #prints all enchatments in an enchantments list   
@@ -26,7 +32,7 @@ class Workshop:
     
     #prints material name and amount of material remaining
     def displayMaterials(materials):
-            for material in materials
+           pass
     
     def displayArmoury(weapon):
         print('it deals', weapon.damage, 'damage')
@@ -45,14 +51,14 @@ class Crafter(ABC):
         pass
     
 class Forge(Crafter):
-        
+    
 
     #crafting method for forge and enchanter(add weapon or enchantment to list)
     def craft(weaponName, primaryMaterial, catalystMaterial):
-        weaponBlueprints[weaponName] = primaryMaterial, catalystMaterial
-        
-        
-    
+
+        weapon = Weapon(weaponName, None, primaryMaterial, catalystMaterial)
+        return weapon
+
     
     #disassemble method for forge and enchanter(removes weapon or enchantment from list)
     def disassemble(weaponName):
@@ -117,7 +123,18 @@ class Enchantment:
         return self.__catalystMaterial
         
     def calculateMagicDamage(self, primaryMaterial, catalystMaterial):
-         return self.__primaryMaterial.magicPower + self.__catalystMaterial.magicPower
+        #if weapon is full wood 
+        if self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Wood):
+            return ((self.__primaryMaterial.Materials(Wood).strength) + (self.__catalystMaterial.Materials(Wood).strength))
+        #if weapon is full metal
+        elif self.__primaryMaterial.Materials(Metal) and self.__catalystMaterial.Materials(Metal):
+            return ((self.__primaryMaterial.Materials(Metal).strength * primaryMaterial.Materials(Metal).purity) + (self.__catalystMaterial.Materials(Metal).strength * catalystMaterial.Materials(Metal).purity))
+        
+        elif self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Metal):
+            return ((self.__primaryMaterial.Materials(Wood).strength) + (self.__catalystMaterial.Materials(Metal).strength * catalystMaterial.Materials(Metal).purity))
+        
+        elif self.__primaryMaterial.Materials(Metal) and self.__catalystMaterial.Materials(Wood):
+            return ((self.__catalystMaterial.Materials(Metal).strength * catalystMaterial.Materials(Metal).purity) + (self.__primaryMaterial.Materials(Metal).strength))
         
             
     def useEffect():
@@ -147,8 +164,8 @@ class Weapon:
         pass
     
     #get damage rating of weapon
-    def getDamage(self, damage):
-         return self.__damage
+    def getDamage():
+        pass
         
     
     def setDamage():
@@ -177,11 +194,22 @@ class Weapon:
     
     
     #check type fo materials that the weapon is made out of, and returns in a float what  thwe weapon damage is
-    def calculateDamage():
-        pass
+    def calculateDamage(self):
+        #if weapon is full wood 
+        if self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Wood):
+            return ((self.__primaryMaterial.Materials(Wood).strength) + (self.__catalystMaterial.Materials(Wood).strength))
+        #if weapon is full metal
+        elif self.__primaryMaterial.Materials(Metal) and self.__catalystMaterial.Materials(Metal):
+            return ((self.__primaryMaterial.Materials(Metal).strength * self.__primaryMaterial.Materials(Metal).purity) + (self.__catalystMaterial.Materials(Metal).strength * self.__catalystMaterial.Materials(Metal).purity))
+        
+        elif self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Metal):
+            return ((self.__primaryMaterial.Materials(Wood).strength) + (self.__catalystMaterial.Materials(Metal).strength * self.__catalystMaterial.Materials(Metal).purity))
+        
+        elif self.__primaryMaterial.Materials(Metal) and self.__catalystMaterial.Materials(Wood):
+            return ((self.__catalystMaterial.Materials(Metal).strength * self.__catalystMaterial.Materials(Metal).purity) + (self.__primaryMaterial.Materials(Metal).strength))
     
-    def attack():
-        pass
+    def attack(calculateDamage):
+        return ('It deals', calculateDamage, 'damage') 
     #property to be made for each
     
 weaponBlueprints = {     "Sword": [Steel(), Maple()],     
