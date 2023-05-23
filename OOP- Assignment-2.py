@@ -1,6 +1,18 @@
 from Materials import *
 from abc import ABC, abstractclassmethod
+'''
+File: OOP-Assignment-2.py
+Description: The assignment 2 comprises of creation of workshop crafting game, where you can create weapons, and enchantments. you can also disassemble
+the weapons and enchantments.
+Author: Christopher Kanaris
+StudentID: 110352617
+EmailID: kancy020
+This is my own work as defined by the university's Academic Miscounduct Policy.
+'''
 
+'''The Workshop method is used to hold the lists of weapons, enchantments and materials, it also holds the display methods
+which display all the contents of the list in it.
+'''
 class Workshop:
     def __init__(self):
 
@@ -16,54 +28,55 @@ class Workshop:
     
      
     
-    #displays weapon, use if to see if value == to enchated opr not enchanted weapon
+    '''displays all the weapon listed in the dictionary, both displaying enchanted weapons or not enchanted weapons'''
     def displayWeapons(self):
         if weapon.enchanted == True:
             print('the'+ self.weapons.keys() + ' is imbued with a' + self.weapons.get(useEffect) + '.' + Weapon.attack)
-        
         else:
             print('the' + self.weapons.keys() + 'is not enchanted. It deals' + Weapon.attack )
-        
-    
-    #prints all enchatments in an enchantments list   
+    '''prints all enchatments in an enchantments list'''  
     def displayEnchantments(enchantments):
         print('A', enchantments.name, 'enchantment is stored in the workshop' ) 
     
-    
-    #prints material name and amount of material remaining
+    '''prints material name and amount of material remaining'''
     def displayMaterials(materials):
            pass
-    
+    '''displays the weapons created with the damage calcuated'''
     def displayArmoury(weapon):
         print('it deals', weapon.damage, 'damage')
      
-#is an abstract class    
+
+'''abstract Crafter class created to pass through its methods of craft and disassemble. the forge and the enchanter will gain access to these abstract methods.
+they will be overidden and have their own methods pass through.
+'''    
 class Crafter(ABC):
     pass
+    '''abstract method pass down to forge and enchanter'''
+    def craft():
+        pass
+    
+    '''abstract method pass down to forge and enchanter'''
+    def disassemble():
+        pass
 
-    #crafting method for forge and enchanter(add weapon or enchantment to list)
-   
-    def craft(self):
-        pass
-    
-    #disassemble method for forge and enchanter(removes weapon or enchantment from list)
-    def disassemble(self):
-        pass
-    
+'''Forge class created, inheritated from the abstract Crafter class, the class is used to forge weapons weapons used from the craft method
+and to disasemble the weapons used from the disassemble method'''
 class Forge(Crafter):
     
 
-    #crafting method for forge and enchanter(add weapon or enchantment to list)
+    '''method pass down form the Crafter abstract class method, used to form weapons using material and weapon name'''
     def craft(weaponName, primaryMaterial, catalystMaterial):
 
         weapon = Weapon(weaponName, None, primaryMaterial, catalystMaterial)
         return weapon
 
     
-    #disassemble method for forge and enchanter(removes weapon or enchantment from list)
+    '''disassemble method passed down from Crafter abstract class, used to delete item from weapon dictionary'''
     def disassemble(weaponName):
         weaponBlueprints.pop(weaponName)
-    
+
+'''The Enchanter has an init which holds the recipe dictionary used for when a a weapon wants imbued a enchantment into it, this applied through
+the craft method of this enchanter class.'''
 class Enchanter(Crafter):
     def __init__(self):
      self.recipes = {"Holy": "pulses a blinding beam of light",
@@ -74,25 +87,18 @@ class Enchanter(Crafter):
                      "Hydro": "envelops the enemy in a suffocating bubble",             
                      "Venomous": "afflicts a deadly, fast-acting toxin"} 
      
-     
-
-    
-    #crafting method for forge and enchanter(add weapon or enchantment to list)
+    '''method pass down form the Crafter abstract class method, used to form enchantments'''
     def craft():
         pass
-        
-        
-    
-    #disassemble method for forge and enchanter(removes weapon or enchantment from workshop)
+    '''disassemble method passed down from Crafter abstract class, used to delete item from enchantment dictionary'''
     def disassemble():
         pass
-        
-    
+    '''enchant method take the wepaon and imbues it into the weapons through the weapons enchated attribute'''
     def enchant():
         pass
-        
 
-# uses mateirla to craft
+'''the Enchantment class holds a set of setters and getter, with init attributes as name, damage, effect, and the two material classes.
+the enchanment is made from the recipes dictionary from enchater'''
 class Enchantment:
     def __init__(self,enchantmentName, magicDamage, effect, primaryMaterial, catalystMaterial):
             self.__enchantmentName = enchantmentName
@@ -100,7 +106,8 @@ class Enchantment:
             self.__effect = effect
             self.__primaryMaterial = primaryMaterial
             self.__catalystMaterial = catalystMaterial
-            
+    
+       
     def getEnchantmentName(self):
         return self.__enchantmentName
     
@@ -121,29 +128,19 @@ class Enchantment:
         
     def getCatalystMaterial(self):
         return self.__catalystMaterial
-        
+    
+    '''calculateMagicDamage, uses the two material classes and calulates each materials magicPower for the final damage result'''
     def calculateMagicDamage(self, primaryMaterial, catalystMaterial):
-        #if weapon is full wood 
-        if self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Wood):
-            return ((self.__primaryMaterial.Materials(Wood).strength) + (self.__catalystMaterial.Materials(Wood).strength))
-        #if weapon is full metal
-        elif self.__primaryMaterial.Materials(Metal) and self.__catalystMaterial.Materials(Metal):
-            return ((self.__primaryMaterial.Materials(Metal).strength * primaryMaterial.Materials(Metal).purity) + (self.__catalystMaterial.Materials(Metal).strength * catalystMaterial.Materials(Metal).purity))
+       
+        return self.__primaryMaterial.magicPower + self.__catalystMaterial.magicPower
+      
         
-        elif self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Metal):
-            return ((self.__primaryMaterial.Materials(Wood).strength) + (self.__catalystMaterial.Materials(Metal).strength * catalystMaterial.Materials(Metal).purity))
-        
-        elif self.__primaryMaterial.Materials(Metal) and self.__catalystMaterial.Materials(Wood):
-            return ((self.__catalystMaterial.Materials(Metal).strength * catalystMaterial.Materials(Metal).purity) + (self.__primaryMaterial.Materials(Metal).strength))
-        
-            
+    '''useEffect is implemented on the displayArmoury section, pass throught he effect that relates to the enchantment'''       
     def useEffect():
         pass
-            
-    #property to be made for each
-            
-    pass
 
+'''Weapon class has init of name damage and the two materials used to create the weapon inside of the weapon classed. with created getters and setters use d\
+    to get the return result of specified information, accompanied with an  '''
 class Weapon:
     def __init__(self,name, damage, primaryMaterial, catalystMaterial):
          self.__name = name
@@ -191,43 +188,21 @@ class Weapon:
     
     def setEnchantment():
         pass
-    
-    
-    #check type fo materials that the weapon is made out of, and returns in a float what  thwe weapon damage is
+    '''calculateDamage, uses the two material classes and calulates each materials attributes for the final damage result'''
     def calculateDamage(self):
         #if weapon is full wood 
         if self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Wood):
-            return ((self.__primaryMaterial.Materials(Wood).strength) + (self.__catalystMaterial.Materials(Wood).strength))
+            return self.__primaryMaterial.strength + self.__catalystMaterial.strength
         #if weapon is full metal
         elif self.__primaryMaterial.Materials(Metal) and self.__catalystMaterial.Materials(Metal):
-            return ((self.__primaryMaterial.Materials(Metal).strength * self.__primaryMaterial.Materials(Metal).purity) + (self.__catalystMaterial.Materials(Metal).strength * self.__catalystMaterial.Materials(Metal).purity))
+            return self.__primaryMaterial.strength * self.__primaryMaterial.purity + self.__catalystMaterial.strength * self.__catalystMaterial.purity
         
         elif self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Metal):
-            return ((self.__primaryMaterial.Materials(Wood).strength) + (self.__catalystMaterial.Materials(Metal).strength * self.__catalystMaterial.Materials(Metal).purity))
+            return self.__primaryMaterial.strength + self.__catalystMaterial.strength * self.__catalystMaterial.purity
         
         elif self.__primaryMaterial.Materials(Metal) and self.__catalystMaterial.Materials(Wood):
-            return ((self.__catalystMaterial.Materials(Metal).strength * self.__catalystMaterial.Materials(Metal).purity) + (self.__primaryMaterial.Materials(Metal).strength))
+            return self.__catalystMaterial.strength * self.__catalystMaterial.purity + self.__primaryMaterial.strength
     
+    '''attack method returns the calculatedDamage results and applies then in workshop displayArmoury'''
     def attack(calculateDamage):
         return ('It deals', calculateDamage, 'damage') 
-    #property to be made for each
-    
-weaponBlueprints = {     "Sword": [Steel(), Maple()],     
-                             "Shield": [Bronze(), Oak()],     
-                             "Axe": [Iron(), Ash()],     
-                             "Scythe": [Steel(), Ash()],     
-                             "Bow": [Oak(), Maple()],     
-                             "Wand": [Ash(), Oak()],     
-                             "Staff": [Bronze(), Maple()],     
-                             "Dagger": [Bronze(), Bronze()]} 
-
-enchantmentBlueprints = {     "Holy": [Diamond(), Diamond()],     
-                              "Lava": [Ruby(), Onyx()],     
-                              "Pyro": [Ruby(), Diamond()],     
-                              "Darkness": [Onyx(), Amethyst()],     
-                              "Cursed": [Onyx(), Onyx()],     
-                              "Hydro": [Sapphire(), Emerald()],     
-                              "Venomous": [Emerald(), Amethyst()]}
-
-materials = [Maple(), Oak(), Ash(), Bronze(), Iron(), Steel(), 
-             Ruby(), Sapphire(), Emerald(), Diamond(), Amethyst(), Onyx()] 
