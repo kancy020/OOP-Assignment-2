@@ -111,11 +111,15 @@ class Enchantment:
     def getEnchantmentName(self):
         return self.__enchantmentName
     
+    enchantmentName = property(getEnchantmentName)  
+    
     def getMagicDamage(self):
         return self.__magicDamage
     
     def setMagicDamage():
         pass
+    
+    magicDamage = property(getMagicDamage, setMagicDamage)
     
     def getEffect(self):
         return self.__effect
@@ -123,11 +127,17 @@ class Enchantment:
     def setEffect():
         pass
     
+    effect = property(getEffect, setEffect)
+    
     def getPrimaryMaterial(self):
         return self.__primaryMaterial 
         
+    primaryMaterial = property(getPrimaryMaterial)
+    
     def getCatalystMaterial(self):
         return self.__catalystMaterial
+    
+    catalystMaterial = property(getCatalystMaterial)
     
     '''calculateMagicDamage, uses the two material classes and calulates each materials magicPower for the final damage result'''
     def calculateMagicDamage(self, primaryMaterial, catalystMaterial):
@@ -149,10 +159,6 @@ class Weapon:
          self.__catalystMaterial = catalystMaterial
          self.__enchanted = None
          
-         
-         
-         
-    # get weapon name  
     def getName(self):
         return self.__name
     
@@ -160,40 +166,50 @@ class Weapon:
         self.__name = weaponName
         pass
     
-    #get damage rating of weapon
-    def getDamage():
-        pass
+    name = property(getName, setName)
+    
+    
+    def getDamage(self):
+        return self.__damage
         
     
-    def setDamage():
-        pass
+    def setDamage(self, damage):
+        self.__damage = damage
     
-    #do a boolean to see if it is enchated
-    def getEnchanted():
-        pass
+    damage = property(getDamage, setDamage)
+   
+    def getEnchanted(self):
+        return self.__enchanted
         
     def setEnchanted():
         pass
     
+    enchanted = property(getEnchanted, setEnchanted)
+    
     def getPrimaryMaterial(self, primaryMaterial):
         return self.__primaryMaterial
         
-    def getSecondaryMaterial(self, catalystMaterial):
-        return self.__catalystMaterial 
-        
+    primaryMaterial = property(getPrimaryMaterial)
     
-    #prints the attached enchantment to the weapon
+    def getCatalystMaterial(self, catalystMaterial):
+        return self.__catalystMaterial 
+    
+    catalystMaterial = property(getCatalystMaterial)
+        
     def getEnchantment(self, enchanted):    
         return self.__enchanted
     
     def setEnchantment():
         pass
+    
+    enchantment = property(getEnchantment, setEnchantment)
+    
     '''calculateDamage, uses the two material classes and calulates each materials attributes for the final damage result'''
     def calculateDamage(self):
-        #if weapon is full wood 
+         
         if self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Wood):
             return self.__primaryMaterial.strength + self.__catalystMaterial.strength
-        #if weapon is full metal
+        
         elif self.__primaryMaterial.Materials(Metal) and self.__catalystMaterial.Materials(Metal):
             return self.__primaryMaterial.strength * self.__primaryMaterial.purity + self.__catalystMaterial.strength * self.__catalystMaterial.purity
         
