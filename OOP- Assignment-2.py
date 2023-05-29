@@ -15,14 +15,28 @@ which display all the contents of the list in it.
 '''
 class Workshop:
     def __init__(self):
-
-   
         self.materials = {Maple(), Oak(), Ash(), Bronze(), Iron(), Steel(), 
             Ruby(), Sapphire(), Emerald(), Diamond(), Amethyst(), Onyx()}
-
-        self.weapons = {}
+        
+        self.weaponBlueprints = {   "Sword": [Steel(), Maple()],     
+                                    "Shield": [Bronze(), Oak()],     
+                                    "Axe": [Iron(), Ash()],     
+                                    "Scythe": [Steel(), Ash()],     
+                                    "Bow": [Oak(), Maple()],     
+                                    "Wand": [Ash(), Oak()],     
+                                    "Staff": [Bronze(), Maple()],     
+                                    "Dagger": [Bronze(), Bronze()]
+                                    } 
     
-        self.enchantment = {}
+        self.enchantmentBlueprints = {     
+                                 "Holy": [Diamond(), Diamond()],     
+                                 "Lava": [Ruby(), Onyx()],     
+                                 "Pyro": [Ruby(), Diamond()],     
+                                 "Darkness": [Onyx(), Amethyst()],     
+                                 "Cursed": [Onyx(), Onyx()],     
+                                 "Hydro": [Sapphire(), Emerald()],     
+                                 "Venomous": [Emerald(), Amethyst()],
+                                }
     
     
     
@@ -31,19 +45,21 @@ class Workshop:
     '''displays all the weapon listed in the dictionary, both displaying enchanted weapons or not enchanted weapons'''
     def displayWeapons(self):
         if weapon.enchanted == True:
-            print('the'+ self.weapons.keys() + ' is imbued with a' + self.weapons.get(useEffect) + '.' + Weapon.attack)
+            print("the"+ self.weapons.keys() + "is imbued with a" + self.weapons.get(useEffect) + "." + Weapon.attack)
         else:
-            print('the' + self.weapons.keys() + 'is not enchanted. It deals' + Weapon.attack )
-    '''prints all enchatments in an enchantments list'''  
-    def displayEnchantments(enchantments):
-        print('A', enchantments.name, 'enchantment is stored in the workshop' ) 
+            print("the" + self.weapons.keys() + "is not enchanted. It deals" + Weapon.attack )
+    '''prints all enchatments in an enchantments list''' 
+     
+    def displayEnchantments(enchantmentBlueprints):
+        for enchantment in enchantmentBlueprints:
+            print("A",enchantmentBlueprints.key , "enchantment is stored in the workshop" ) 
     
     '''prints material name and amount of material remaining'''
     def displayMaterials(materials):
            pass
     '''displays the weapons created with the damage calcuated'''
     def displayArmoury(weapon):
-        print('it deals', weapon.damage, 'damage')
+        print("it deals", Weapon.calculateDamage, "damage")
      
 
 '''abstract Crafter class created to pass through its methods of craft and disassemble. the forge and the enchanter will gain access to these abstract methods.
@@ -140,7 +156,7 @@ class Enchantment:
     catalystMaterial = property(getCatalystMaterial)
     
     '''calculateMagicDamage, uses the two material classes and calulates each materials magicPower for the final damage result'''
-    def calculateMagicDamage(self, primaryMaterial, catalystMaterial):
+    def calculateMagicDamage(self):
        
         return self.__primaryMaterial.magicPower + self.__catalystMaterial.magicPower
       
@@ -164,7 +180,6 @@ class Weapon:
     
     def setName(self, weaponName):
         self.__name = weaponName
-        pass
     
     name = property(getName, setName)
     
@@ -186,17 +201,17 @@ class Weapon:
     
     enchanted = property(getEnchanted, setEnchanted)
     
-    def getPrimaryMaterial(self, primaryMaterial):
+    def getPrimaryMaterial(self):
         return self.__primaryMaterial
         
     primaryMaterial = property(getPrimaryMaterial)
     
-    def getCatalystMaterial(self, catalystMaterial):
+    def getCatalystMaterial(self):
         return self.__catalystMaterial 
     
     catalystMaterial = property(getCatalystMaterial)
         
-    def getEnchantment(self, enchanted):    
+    def getEnchantment(self):    
         return self.__enchanted
     
     def setEnchantment():
@@ -207,11 +222,11 @@ class Weapon:
     '''calculateDamage, uses the two material classes and calulates each materials attributes for the final damage result'''
     def calculateDamage(self):
          
-        if self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Wood):
+        if self.__primaryMaterial == Wood and self.__catalystMaterial == Wood:
             return self.__primaryMaterial.strength + self.__catalystMaterial.strength
         
-        elif self.__primaryMaterial.Materials(Metal) and self.__catalystMaterial.Materials(Metal):
-            return self.__primaryMaterial.strength * self.__primaryMaterial.purity + self.__catalystMaterial.strength * self.__catalystMaterial.purity
+        elif self.__primaryMaterial == Metal and self.__catalystMaterial == Metal:
+            return Metal.purity * Metal.purity + self.__catalystMaterial.strength * self.__catalystMaterial.purity
         
         elif self.__primaryMaterial.Materials(Wood) and self.__catalystMaterial.Materials(Metal):
             return self.__primaryMaterial.strength + self.__catalystMaterial.strength * self.__catalystMaterial.purity
@@ -221,4 +236,6 @@ class Weapon:
     
     '''attack method returns the calculatedDamage results and applies then in workshop displayArmoury'''
     def attack(calculateDamage):
-        return ('It deals', calculateDamage, 'damage') 
+        return ("It deals", calculateDamage, "damage") 
+    
+    
