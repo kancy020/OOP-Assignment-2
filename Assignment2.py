@@ -16,8 +16,8 @@ which display all the contents of the list in it.
 class Workshop:
     def __init__(self):
         
-        self.WeaponList = {}
-        self.EnchantmentList = {}
+        self.weaponList = {}
+        self.enchantmentList = {}
         self.materialsList = {}
         
         
@@ -52,7 +52,7 @@ class Workshop:
     
     '''displays all the weapon listed in the dictionary, both displaying enchanted weapons or not enchanted weapons'''
     def displayWeapons(self):#test method 
-        if WeaponList.enchanted == True:
+        if weaponList.enchanted == True:
             print("the" + self.WeaponList.keys() + "is imbued with a" + self.WeaponList.get(useEffect) + "." + Weapon.attack)
         else:
             print("the" + self.WeaponList.keys() + "is not enchanted. It deals" + Weapon.attack() )
@@ -92,13 +92,19 @@ class Forge(Crafter):
     '''method pass down form the Crafter abstract class method, used to form weapons using material and weapon name'''
     def craft(weaponName, primaryMaterial, catalystMaterial): #test method
 
-        weapon = Weapon(weaponName, None, primaryMaterial, catalystMaterial)
+        weapon = Weapon(weaponName, primaryMaterial, catalystMaterial)
         return weapon
 
     
     '''disassemble method passed down from Crafter abstract class, used to delete item from weapon dictionary'''
     def disassemble(weaponName): #test method
-        pass
+        workshop = Workshop
+        weaponName = input("")
+        for weapon in workshop.weaponList:
+            if weapon == weaponName:
+                del workshop.weaponList[weaponName]
+                
+            
 
 '''The Enchanter has an init which holds the recipe dictionary used for when a a weapon wants imbued a enchantment into it, this applied through
 the craft method of this enchanter class.'''
