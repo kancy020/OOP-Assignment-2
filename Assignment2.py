@@ -14,11 +14,13 @@ This is my own work as defined by the university's Academic Miscounduct Policy.
 which display all the contents of the list in it.
 '''
 class Workshop:
-    def __init__(self):
+    def __init__(self, enchanter, forge):
         
         self.weaponList = {}
         self.enchantmentList = {}
         self.materialsList = {}
+        self.echanter = enchanter
+        self.forge = forge
         
         
         
@@ -44,6 +46,7 @@ class Workshop:
                                  "Cursed": [Onyx(), Onyx()],     
                                  "Hydro": [Sapphire(), Emerald()],     
                                  "Venomous": [Emerald(), Amethyst()],
+                                 "Earthly": [Emerald(), Amethyst()]
                                 }
     
     
@@ -254,4 +257,83 @@ class Enchantment:
     def useEffect(): #test method
         pass
     
+
+#testing code
+workshop = Workshop(Forge(), Enchanter())
+
+
+materials = {Maple(), Oak(), Ash(), Bronze(), Iron(), Steel(), 
+    Ruby(), Sapphire(), Emerald(), Diamond(), Amethyst(), Onyx()}
+
+
+weaponBlueprints = {   "Sword": [Steel(), Maple()],     
+                            "Shield": [Bronze(), Oak()],     
+                            "Axe": [Iron(), Ash()],     
+                            "Scythe": [Steel(), Ash()],     
+                            "Bow": [Oak(), Maple()],     
+                            "Wand": [Ash(), Oak()],     
+                            "Staff": [Bronze(), Maple()],     
+                            "Dagger": [Bronze(), Bronze()]
+                            } 
+
+enchantmentBlueprints = {     
+                            "Holy": [Diamond(), Diamond()],     
+                            "Lava": [Ruby(), Onyx()],     
+                            "Pyro": [Ruby(), Diamond()],     
+                            "Darkness": [Onyx(), Amethyst()],     
+                            "Cursed": [Onyx(), Onyx()],     
+                            "Hydro": [Sapphire(), Emerald()],     
+                            "Venomous": [Emerald(), Amethyst()],
+                            "Earthly": [Emerald(), Amethyst()]
+                        }
+
+enchantedWeapons = ["Holy Greatsword", "Molten Defender", "Berserker Axe", "Soul Eater",     
+                    "Twisted Bow", "Wand of the Deep", "Venemous Battlestaff"]  
+
+# Adds a number of materials to use for crafting. 
+for material in materials:
+    if isinstance(material, Wood):         
+        workshop.addMaterial(material.__class__.__name__, 20)     
+    elif isinstance(material, Metal):         
+        workshop.addMaterial(material.__class__.__name__, 10)     
+    else:         
+        workshop.addMaterial(material.__class__.__name__, 5)  
+        
+print("--------------------------------Material Store--------------------------------") 
+print(workshop.displayMaterials())  
+
+# Crafts the following: Sword, Shield, Axe, Scythe, Bow, Wand and Staff weapons. 
+for weapon, materials in weaponBlueprints.items():     
+    craftedWeapon = workshop.forge.craft(         
+        weapon, materials[0], materials[1], workshop.materials)     
+    workshop.addWeapon(craftedWeapon)  
     
+# Disassemble the extra weapon. 
+
+workshop.removeWeapon(workshop.forge.disassemble(     
+    workshop.weapons[7], workshop.materials))  
+
+print("------------------------------------Armoury-----------------------------------") 
+print(workshop.displayWeapons())  
+# Crafts the following: Holy, Lava, Pyro, Darkness, Cursed, Hydro and Venomous enchantments. 
+for enchantment, materials in enchantmentBlueprints.items():     
+    craftedEnchantment = workshop.enchanter.craft(         enchantment, materials[0], materials[1], workshop.materials)     
+    workshop.addEnchantment(craftedEnchantment)  
+    
+# Disassemble the extra enchantment. 
+workshop.removeEnchantment(workshop.enchanter.disassemble(     
+    workshop.enchantments[7], workshop.materials))  
+
+print("------------------------------------Enchantments------------------------------------") 
+print(workshop.displayEnchantments())  
+
+print("-----------------------------------Material Store-----------------------------------") 
+print(workshop.displayMaterials())  
+
+# Enchant the following weapons: Sword, Shield, Axe, Scythe, Bow, Wand and Staff. for i in range(len(enchantedWeapons)): 
+for i in range(len(enchantedWeapons)):
+     workshop.enchanter.enchant(         
+        workshop.weapons[i], enchantedWeapons[i], workshop.enchantments[i])  
+     
+     print("-----------------------------------Enchanted Armoury----------------------------------") 
+     print(workshop.displayWeapons()) 
