@@ -18,45 +18,15 @@ class Workshop:
         
         self.weaponList = {}
         self.enchantmentList = {}
-        self.materialsList = {}
-        self.echanter = enchanter
+        self.materials = {}
+        self.enchanter = enchanter
         self.forge = forge
         
-        
-        
-        self.materials = {Maple(), Oak(), Ash(), Bronze(), Iron(), Steel(), 
-            Ruby(), Sapphire(), Emerald(), Diamond(), Amethyst(), Onyx()}
-        
-        
-        self.weaponBlueprints = {   "Sword": [Steel(), Maple()],     
-                                    "Shield": [Bronze(), Oak()],     
-                                    "Axe": [Iron(), Ash()],     
-                                    "Scythe": [Steel(), Ash()],     
-                                    "Bow": [Oak(), Maple()],     
-                                    "Wand": [Ash(), Oak()],     
-                                    "Staff": [Bronze(), Maple()],     
-                                    "Dagger": [Bronze(), Bronze()]
-                                    } 
-    
-        self.enchantmentBlueprints = {     
-                                 "Holy": [Diamond(), Diamond()],     
-                                 "Lava": [Ruby(), Onyx()],     
-                                 "Pyro": [Ruby(), Diamond()],     
-                                 "Darkness": [Onyx(), Amethyst()],     
-                                 "Cursed": [Onyx(), Onyx()],     
-                                 "Hydro": [Sapphire(), Emerald()],     
-                                 "Venomous": [Emerald(), Amethyst()],
-                                 "Earthly": [Emerald(), Amethyst()]
-                                }
-    
-    
-    
-     
     
     '''displays all the weapon listed in the dictionary, both displaying enchanted weapons or not enchanted weapons'''
     def displayWeapons(self):#test method 
-        if weaponList.enchanted == True:
-            print("the" + self.WeaponList.keys() + "is imbued with a" + self.WeaponList.get(useEffect) + "." + Weapon.attack)
+        if self.weaponList.enchanted == True:
+            print("the" + self.weaponList.keys() + "is imbued with a" + self.WeaponList.get(useEffect) + "." + Weapon.attack)
         else:
             print("the" + self.WeaponList.keys() + "is not enchanted. It deals" + Weapon.attack() )
     '''prints all enchatments in an enchantments list''' 
@@ -67,11 +37,25 @@ class Workshop:
     
     '''prints material name and amount of material remaining'''
     def displayMaterials(self): #testmethod
-                pass
+            for material, values in self.materials.items():
+                print(material , ":" , values , "remaining.")
            
     '''displays the weapons created with the damage calcuated'''
     def displayArmoury(weapon): #test method
         print("it deals", Weapon.calculateDamage, "damage")
+        
+    def addMaterial(self, name, value):
+        
+      add = self.materials[name] = value
+      return add
+
+
+        
+    def addWeapon():
+        pass
+    def addEnchantment():
+        pass
+                    
      
 
 '''abstract Crafter class created to pass through its methods of craft and disassemble. the forge and the enchanter will gain access to these abstract methods.
@@ -93,21 +77,26 @@ class Forge(Crafter):
     
 
     '''method pass down form the Crafter abstract class method, used to form weapons using material and weapon name'''
-    def craft(weaponName, primaryMaterial, catalystMaterial): #test method
+    def craft(weaponName, primaryMaterial, catalystMaterial, enchanted): #test method
 
-        weapon = Weapon(weaponName, primaryMaterial, catalystMaterial)
-        return weapon
-
+        weapon = Weapon(weaponName, primaryMaterial, catalystMaterial, enchanted)
+        return Workshop.weaponList.weaponList[weapon]
+        
+    
+    
+        
     
     '''disassemble method passed down from Crafter abstract class, used to delete item from weapon dictionary'''
-    def disassemble(weaponName): #test method
+    def disassemble(primayMaterial, catalystMaterial ): #test method
+        
         workshop = Workshop
-        weaponName = input("")
+        weapon = workshop.weaponList.index
         for weapon in workshop.weaponList:
-            if weapon == weaponName:
-                del workshop.weaponList[weaponName]
+            if weapon == workshop.weaponList[-1]:
+                del workshop.weaponList[weapon]
                 
             
+                
 
 '''The Enchanter has an init which holds the recipe dictionary used for when a a weapon wants imbued a enchantment into it, this applied through
 the craft method of this enchanter class.'''
