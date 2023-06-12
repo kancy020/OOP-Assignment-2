@@ -27,8 +27,8 @@ enchanter : string
 class Workshop:
     def __init__(self, forge, enchanter):
         
-        self.weapons = {}
-        self.enchantments = {}
+        self.weapons = []
+        self.enchantments = []
         self.materials = {}
         self.forge = forge
         self.enchanter = enchanter
@@ -40,19 +40,17 @@ class Workshop:
     
     """add weapon into weapons dictionary."""
     def addWeapon(self, weapon):#test
-        addWeapon = self.weapons[weapon.getName()] = weapon 
-        return addWeapon
+        self.weapons.append(weapon)
+        return self.weapons
     
     """remove last imported weapon from weapons dictionary."""    
     def removeWeapon(self):#test
-        for weapon[i] in len(self.weapons[i]):
-            self.weapons.popitem(weapon)
-        return weapon
+        pass
     
     """add enchantment into enchantments."""
     def addEnchantment(self, enchantment):#test
-        addEnchantment = self.enchantments[enchantment.getEnchantmentName()] = enchantment.getEffect()
-        return addEnchantment
+        self.enchantments.append(enchantment)
+        return self.enchantments
     
     """remove last imported enchantment from enchantments."""
     def removeEnchantment(self):#test
@@ -60,24 +58,26 @@ class Workshop:
         
     """displays all the weapon listed in the dictionary, both displaying enchanted weapons or non-enchanted weapons."""
     def displayWeapons(self):#test method
-        weapon =  Weapon 
-        enchantedWeaponStr = ""
-        if weapon.getEnchanted == True:
+        weaponlist = ""
+        if Weapon.getEnchanted == True:
             for weapon in self.weapons:
-                enchantedWeaponStr += f"The {enchantedWeapons[i]} is imbued with a {enchantment.useEffect}.\n"
-            return weaponStr
+                self.weapons += f"The {enchantedWeapons[i]} is imbued with a {enchantment.useEffect}.\n"
+            return  weaponlist
         else:
-            weaponStr = ""
+            weaponlist = ""
             for weapon in self.weapons:
-                weaponStr += f"The {weapon} is not enchanted.\n"
-            return weaponStr
+                weaponlist += f"The {weapon} is not enchanted.\n"
+            return weaponlist
+
+            
         
     """prints all enchatments in an enchantments list."""
     def displayEnchantments(self): #testmethod
-        enchantmentStr = ""
+        enchantmentsList = ""
         for enchantment in self.enchantments:
-            enchantmentStr += f"A {enchantment} enchantment is stored in the workshop. \n"
-        return enchantmentStr
+            enchantmentsList += f"A {enchantment} enchantment is stored in the workshop.\n"
+        return enchantmentsList 
+        
 
     """prints material name and amount of material remaining."""
     def displayMaterials(self): #testmethod
@@ -125,7 +125,7 @@ class Forge(Crafter):
             return craftedWeapon
         
     """disassemble method passed down from Crafter abstract class method, used to update materials value and remove item from weapon dictionary."""
-    def disassembles(self, primaryMaterial, catalystMaterial): #test method
+    def disassembles(self): #test method
             materials[primaryMaterial.__class__.__name__] += 1
             materials[catalystMaterial.__class__.__name__] += 1 
             
@@ -163,15 +163,16 @@ class Enchanter(Crafter):
                 return craftedEnchantment
 
     """disassemble method passed down from Crafter abstract class method, used to delete item from enchantment dictionary and update materials value."""
-    def disassemble(materials): #test method
-        pass
+    def disassemble(): #test method
+        return
+        materials[primaryMaterial.__class__.__name__] += 1
+        materials[catalystMaterial.__class__.__name__] += 1
+        
     
     """enchant method take the weapon and imbues it into the weapons through the weapons enchanted attribute."""
-    def enchant(self,weapon, enchantedWeapon, enchantment): #test method
-        ##weapon.setName(enchantedWeapon)
-        ##weapon.enchantedWeapon(enchantment)
+    def enchant(self, weapon, enchantmentName, enchantment): #test method
         pass
-             
+        
                 
         
         
@@ -377,9 +378,9 @@ for weapon, materials in weaponBlueprints.items():
         weapon, materials[0], materials[1], workshop.materials)     
     workshop.addWeapon(craftedWeapon)  
     
-# #Disassemble the extra weapon. 
-# workshop.removeWeapon(workshop.forge.disassemble(     
-#     workshop.weapons[7], workshop.materials))  
+#Disassemble the extra weapon. 
+workshop.removeWeapon(workshop.forge.disassemble(     
+    workshop.weapons[7], workshop.materials))  
 
 print("------------------------------------Armoury-----------------------------------") 
 print(workshop.displayWeapons())  
