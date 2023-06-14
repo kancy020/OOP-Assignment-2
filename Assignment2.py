@@ -44,8 +44,8 @@ class Workshop:
         return self.weapons
     
     """remove last imported weapon from weapons dictionary."""    
-    def removeWeapon(self):#test
-        pass
+    def removeWeapon(self, weapon):#test
+       pass
     
     """add enchantment into enchantments."""
     def addEnchantment(self, enchantment):#test
@@ -58,24 +58,26 @@ class Workshop:
         
     """displays all the weapon listed in the dictionary, both displaying enchanted weapons or non-enchanted weapons."""
     def displayWeapons(self):#test method
-        weaponlist = ""
+        weapon = Weapon
+        weaponList = ""
         if Weapon.getEnchanted == True:
             for weapon in self.weapons:
-                self.weapons += f"The {enchantedWeapons[i]} is imbued with a {enchantment.useEffect}.\n"
-            return  weaponlist
+                weaponList += f"The {enchantedWeapons[i]} is imbued with a {enchantment.useEffect}.\n"
+            return  weaponList
         else:
-            weaponlist = ""
+            weaponList = ""
             for weapon in self.weapons:
-                weaponlist += f"The {weapon} is not enchanted.\n"
-            return weaponlist
+                weaponList += f"The {weapon.gsName} is not enchanted.\n"
+            return weaponList
 
             
         
     """prints all enchatments in an enchantments list."""
     def displayEnchantments(self): #testmethod
+        enchantment = Enchantment
         enchantmentsList = ""
         for enchantment in self.enchantments:
-            enchantmentsList += f"A {enchantment} enchantment is stored in the workshop.\n"
+            enchantmentsList += f"A {enchantment.enchantmentName} enchantment is stored in the workshop.\n"
         return enchantmentsList 
         
 
@@ -125,9 +127,10 @@ class Forge(Crafter):
             return craftedWeapon
         
     """disassemble method passed down from Crafter abstract class method, used to update materials value and remove item from weapon dictionary."""
-    def disassembles(self): #test method
+    def disassemble(weapon, primaryMaterial, catalystMaterial): #test method
             materials[primaryMaterial.__class__.__name__] += 1
-            materials[catalystMaterial.__class__.__name__] += 1 
+            materials[catalystMaterial.__class__.__name__] += 1
+            
             
             
 """
@@ -163,14 +166,16 @@ class Enchanter(Crafter):
                 return craftedEnchantment
 
     """disassemble method passed down from Crafter abstract class method, used to delete item from enchantment dictionary and update materials value."""
-    def disassemble(): #test method
-        return
-        materials[primaryMaterial.__class__.__name__] += 1
-        materials[catalystMaterial.__class__.__name__] += 1
+    def disassemble(weapon, primaryMaterial, catalystMaterial): #test method
+            weapon(primaryMaterial, catalystMaterial)
+            materials[primaryMaterial.__class__.__name__] += 1
+            materials[catalystMaterial.__class__.__name__] += 1
+            
+
         
     
     """enchant method take the weapon and imbues it into the weapons through the weapons enchanted attribute."""
-    def enchant(self, weapon, enchantmentName, enchantment): #test method
+    def enchant(self): #test method
         pass
         
                 
@@ -182,7 +187,7 @@ to get the return result of specified information, accompanied with an.
 
 Attributes
 ----------
-name : string
+name : string 
     name achieved via instansiated weapon.
 damage : integar
     damage calculated by algorithm.
@@ -379,8 +384,8 @@ for weapon, materials in weaponBlueprints.items():
     workshop.addWeapon(craftedWeapon)  
     
 #Disassemble the extra weapon. 
-workshop.removeWeapon(workshop.forge.disassemble(     
-    workshop.weapons[7], workshop.materials))  
+# workshop.removeWeapon(workshop.forge.disassemble(     
+#     workshop.weapons[7], workshop.materials))  
 
 print("------------------------------------Armoury-----------------------------------") 
 print(workshop.displayWeapons())  

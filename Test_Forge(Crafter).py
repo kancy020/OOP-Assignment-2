@@ -1,10 +1,10 @@
 import unittest
-from Assignment2 import Forge
+from Assignment2 import Weapon
 from Materials import *
 
 class TestForge(unittest. TestCase):
     def testCraft(self):
-        pass
+        weapon = Weapon()
     
     def testDissasemble(self):
         pass
